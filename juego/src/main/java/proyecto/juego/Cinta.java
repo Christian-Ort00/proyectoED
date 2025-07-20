@@ -4,6 +4,9 @@
  */
 package proyecto.juego;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Usuario
@@ -39,13 +42,13 @@ public class Cinta {
                 ultimo = nuevo;
             }
             cantidadActual++;
-        }else{
+        } else {
             System.out.println("Esta lleno!");
         }
 
     }
-    
-    public int getCantidadActual(){
+
+    public int getCantidadActual() {
         return cantidadActual;
     }
 
@@ -62,23 +65,56 @@ public class Cinta {
         } while (actual != cabeza);
         System.out.println("(cabeza)");
     }
-    
-    public Ingrediente tomar(){
-        if(cabeza==null){
-            System.out.println("No hya ingredientes");
+
+    public Ingrediente tomar() {
+        if (cabeza == null) {
+            System.out.println("No hay ingredientes");
             return null;
         }
-        Ingrediente tomado=cabeza.ingrediente;
-        if(cabeza==ultimo){
-            cabeza=null;
-            ultimo=null;
-        }else{
-            cabeza=cabeza.siguiente;
-            ultimo.siguiente=cabeza;
+        Ingrediente tomado = cabeza.ingrediente;
+        if (cabeza == ultimo) {
+            cabeza = null;
+            ultimo = null;
+        } else {
+            cabeza = cabeza.siguiente;
+            ultimo.siguiente = cabeza;
         }
         cantidadActual--;
-        System.out.println("Se tomo"+ tomado);
+        System.out.println("Se tomo " + tomado);
         return tomado;
     }
 
+    public void avanzar() {
+        if (cabeza != null && ultimo != null) {
+            cabeza = cabeza.siguiente;
+            ultimo = ultimo.siguiente;
+        }
+    }
+
+    public List<Ingrediente> obtenerListaIngredientes() {
+        List<Ingrediente> lista = new ArrayList<>();
+        if (cabeza == null) {
+            return lista;
+        }
+
+        NodoCinta actual = cabeza;
+        do {
+            lista.add(actual.ingrediente);
+            actual = actual.siguiente;
+        } while (actual != cabeza);
+
+        return lista;
+    }
+    public List<Ingrediente> obtenerIngredientes() {
+            List<Ingrediente> ingredientes = new ArrayList<>();
+            if (cabeza == null) return ingredientes;
+            NodoCinta actual = cabeza;
+            do {
+                ingredientes.add(actual.ingrediente);
+                actual = actual.siguiente;
+            } while (actual != cabeza);
+            return ingredientes;
+        }
+
 }
+

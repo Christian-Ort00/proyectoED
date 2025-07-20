@@ -1,25 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package proyecto.juego;
 
-/**
- *
- * @author Usuario
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class Orden {
 
     private NodoOrden frente;
     private NodoOrden fin;
-    private int capacidadMax;
+    private int capacidadMax = 3;
     private int tamanoActual;
 
     public Orden() {
         this.frente = null;
         this.fin = null;
         this.tamanoActual = 0;
-        this.capacidadMax = 3;
     }
 
     public boolean estaLlena() {
@@ -27,44 +21,64 @@ public class Orden {
     }
 
     public void encolar(Hamburguesa hamburguesa) {
+        if (estaLlena()) {
+            return;
+        }
 
-        if (!estaLlena()) {
-            NodoOrden nuevo = new NodoOrden(hamburguesa);
-            if (fin != null) {
-                fin.siguiente = nuevo;
-            }
+        NodoOrden nuevo = new NodoOrden(hamburguesa);
+        if (frente == null) {
+            frente = nuevo;
             fin = nuevo;
-            if (frente == null) {
-                frente = nuevo;
-            }
-            tamanoActual++;
+        } else {
+            fin.siguiente = nuevo;
+            fin = nuevo;
         }
-
+        tamanoActual++;
     }
 
-    public Hamburguesa desencolar() throws Exception {
+    public Hamburguesa verFrente() {
         if (frente == null) {
-            throw new Exception("La cola esta vacia");
-        }
-        Hamburguesa dato = frente.hamburguesa;
-        frente = frente.siguiente;
-        if (frente == null) {
-            fin = null;
-        }
-        return dato;
-    }
-    
-    public Hamburguesa verFrente() throws Exception{
-        if(frente==null){
-            throw new Exception("La cola esta vacia");
-            
+            return null;
         }
         return frente.hamburguesa;
     }
+
+    public void desencolar() {
+        if (frente == null) {
+            return;
+        }
+        frente = frente.siguiente;
+        tamanoActual--;
+        if (frente == null) {
+            fin = null;
+        }
+    }
+
+   
+
+    public List<Hamburguesa> obtenerOrdenes() {
+        List<Hamburguesa> lista = new ArrayList<>();
+        NodoOrden actual = frente;
+        while (actual != null) {
+            lista.add(actual.hamburguesa);
+            actual = actual.siguiente;
+        }
+        return lista;
+    }
+
+    public void generarOrdenAleatoria() {
+        if (!estaLlena()) {
+            Hamburguesa nueva = Hamburguesa.generarAleatoria();
+            encolar(nueva);
+        }
     
-    public boolean estaVacia(){
-        return frente==null;
     }
     
+
+    
+
+    public boolean estaVacia() {
+        return tamanoActual == 0;
+    }
 
 }

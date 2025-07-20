@@ -53,13 +53,17 @@ public class Hamburguesa {
         }
     }
     
-    
-    
-   
-    
+  public List<Ingrediente> getIngredientes() {
+    return ingredientes;
+}
+
+public int getPuntaje() {
+    return puntaje;
+}
+
     @Override
     public String toString(){
-        return "La hamburguea es "+ tipo + "y tiene " + ingredientes.toString();  
+        return  tipo + " tiene " + ingredientes.toString();  
     }
     
 }
