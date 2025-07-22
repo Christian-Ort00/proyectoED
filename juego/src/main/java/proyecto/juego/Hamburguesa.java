@@ -66,4 +66,18 @@ public int getPuntaje() {
         return  tipo + " tiene " + ingredientes.toString();  
     }
     
+     @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Hamburguesa otra = (Hamburguesa) obj;
+        return tipo.equals(otra.tipo) && ingredientes.equals(otra.ingredientes);
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(tipo, ingredientes);
+    }
+}
+
 }
