@@ -53,10 +53,21 @@ public class Ingrediente {
         return nombre;
     }
 
-    
-
     public String toString() {
         return nombre;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Ingrediente other = (Ingrediente) obj;
+        return nombre.equalsIgnoreCase(other.nombre);
+    }
+    
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre.toLowerCase());
     }
 
 }
