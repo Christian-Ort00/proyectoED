@@ -87,11 +87,30 @@ public class MotorJuego {
                 cinta.insertar(Ingrediente.generarAleatorio());
             }
         }
-     }
+      }
+    
+    public boolean validarOrden() {
+        Hamburguesa ordenActual = obtenerOrdenFrente();
+        if (ordenActual == null) return false;
 
-        
-        
+        List<Ingrediente> ordenIngredientes = ordenActual.getIngredientes();
+        if (ingredientesPreparados.size() != ordenIngredientes.size()) return false;
 
+        for (int i = 0; i < ordenIngredientes.size(); i++) {
+            if (!ingredientesPreparados.get(i).equals(ordenIngredientes.get(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+     public void tirarUltimoIngrediente() {
+        if (!ingredientesPreparados.isEmpty()) {
+            Ingrediente eliminado = ingredientesPreparados.remove(ingredientesPreparados.size() - 1);
+            System.out.println("Ingrediente eliminado: " + eliminado);
+        }
+    }
+    
     public void agregarIngredientePreparado(Ingrediente ing) {
         ingredientesPreparados.add(ing);
     }
