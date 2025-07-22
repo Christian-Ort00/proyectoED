@@ -66,7 +66,7 @@ public class MotorJuego {
         return cinta.obtenerIngredientes();
     }
 
-    public Ingrediente tomarIngrediente() {
+    public Ingrediente tomarIngrediente()  {
         Ingrediente ing = cinta.tomar();
         if (cinta.getCantidadActual() <= 3) {
             while (!cinta.estaLleno()) {
@@ -75,6 +75,22 @@ public class MotorJuego {
         }
         return ing;
     }
+
+    public void tirarIngrediente ()  {
+        Ingrediente ing = cinta.tomar();
+        if (ing != null) {
+            System.out.println("Haz tirado el ingrediente: " + ing);
+            cinta.avanzar(); 
+        }
+        if (cinta.getCantidadActual() <= 3) {
+            while (!cinta.estaLleno()) {
+                cinta.insertar(Ingrediente.generarAleatorio());
+            }
+        }
+     }
+
+        
+        
 
     public void agregarIngredientePreparado(Ingrediente ing) {
         ingredientesPreparados.add(ing);
