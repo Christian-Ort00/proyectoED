@@ -5,6 +5,7 @@
 package proyecto.juego;
 
 import java.util.List;
+import java.util.Objects;
 
 ;
 /**
@@ -80,4 +81,4 @@ public int getPuntaje() {
     }
 }
 
-}
+
