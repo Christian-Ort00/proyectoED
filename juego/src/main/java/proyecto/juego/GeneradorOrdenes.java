@@ -25,7 +25,7 @@ public class GeneradorOrdenes implements Runnable{
                 while(!ordenes.estaLlena()){
                     Hamburguesa nueva = Hamburguesa.generarAleatoria();
                     ordenes.encolar(nueva);
-                    System.out.println("Nueva orden generada"+nueva);
+                    System.out.println("Nueva orden generada: "+ nueva);
                 }
                 
             }catch(InterruptedException e){
