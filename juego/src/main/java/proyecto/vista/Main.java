@@ -10,6 +10,11 @@ package proyecto.vista;
  */
 public class Main {
     public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(JuegoUI::new);
+        //javax.swing.SwingUtilities.invokeLater(JuegoUI::new);
+        
+        
+        
+        new MenuPrincipal();
     }
+    
 }
