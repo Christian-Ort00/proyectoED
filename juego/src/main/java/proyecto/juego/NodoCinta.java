@@ -9,11 +9,11 @@ package proyecto.juego;
  * @author Usuario
  */
 public class NodoCinta {
-    Ingrediente ingrediente;
-    NodoCinta siguiente;
+    Ingrediente ingrediente;  // Ingrediente que contiene este nodo
+    NodoCinta siguiente;  // Referencia al siguiente nodo en la cinta
     
     public NodoCinta(Ingrediente ingrediente){
-        this.ingrediente=ingrediente;
-        this.siguiente=null;
+        this.ingrediente=ingrediente; // Guarda el ingrediente en el nodo
+        this.siguiente=null;  // Al inicio no apunta a nadie
     }
 }
