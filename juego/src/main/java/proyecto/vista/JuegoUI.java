@@ -23,30 +23,34 @@ public class JuegoUI extends JFrame implements MotorJuego.TiempoListener {
         // --- Lógica del juego ---
         motor = new MotorJuego();
         motor.agregarListenerTiempo(this);
-        motor.llenarCintaInicial();
-        motor.generarOrdenInicial();
-        motor.iniciarJuego();
+        motor.llenarCintaInicial(); // Llenar la cinta transportadora con ingredientes
+        motor.generarOrdenInicial();  // Crear la primera orden
+        motor.iniciarJuego(); // Arrancar el juego
 
         // --- Ventana ---
         setTitle("OverCooked-Fide");
-        setSize(950, 650);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
-        setLocationRelativeTo(null);
-        getContentPane().setBackground(Color.decode("#f4f4f4"));
+        setSize(950, 650);   // Tamaño
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);   
+        setLayout(new BorderLayout());  // Diseño principal
+        setLocationRelativeTo(null);   // Centrar en pantalla
+        getContentPane().setBackground(Color.decode("#f4f4f4")); /7 Fondo
 
         // --- Panel superior: tiempo, puntaje y salir ---
         JPanel panelSuperior = new JPanel(new FlowLayout(FlowLayout.CENTER, 50, 10));
-        panelSuperior.setBackground(Color.decode("#2d3436"));
-
+        panelSuperior.setBackground(Color.decode("#2d3436")); //Fondo
+        
+        //Tiempo
         labelTiempo = new JLabel("Tiempo: 300");
         labelTiempo.setForeground(Color.WHITE);
         labelTiempo.setFont(new Font("Segoe UI", Font.BOLD, 16));
 
+        // Puntaje
         labelPuntaje = new JLabel("Puntaje: 0");
         labelPuntaje.setForeground(Color.WHITE);
         labelPuntaje.setFont(new Font("Segoe UI", Font.BOLD, 16));
 
+        
+        // Botón para salir al menú principal
         JButton botonSalirMenu = new JButton("Salir al Menú");
         botonSalirMenu.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         botonSalirMenu.setBackground(Color.decode("#d63031"));
@@ -54,10 +58,11 @@ public class JuegoUI extends JFrame implements MotorJuego.TiempoListener {
         botonSalirMenu.setFocusPainted(false);
         botonSalirMenu.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
         botonSalirMenu.addActionListener(e -> {
-            dispose();
-            new MenuPrincipal();
+            dispose();   // Cierra esta ventana
+            new MenuPrincipal();  // Abre el menú
         });
 
+        // Agregar al panel superior
         panelSuperior.add(labelTiempo);
         panelSuperior.add(labelPuntaje);
         panelSuperior.add(botonSalirMenu);
@@ -72,11 +77,14 @@ public class JuegoUI extends JFrame implements MotorJuego.TiempoListener {
         // --- Panel central: cinta + ingredientes preparados ---
         JPanel centro = new JPanel(new GridLayout(2, 1));
 
+        
+        // Cinta transportadora de ingredientes
         panelCinta = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         panelCinta.setBorder(BorderFactory.createTitledBorder("Cinta transportadora"));
         panelCinta.setBackground(Color.WHITE);
         centro.add(panelCinta);
 
+         // Ingredientes que el jugador toma
         panelPreparados = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
         panelPreparados.setBorder(BorderFactory.createTitledBorder("Ingredientes preparados"));
         panelPreparados.setBackground(Color.WHITE);
@@ -88,7 +96,7 @@ public class JuegoUI extends JFrame implements MotorJuego.TiempoListener {
         JPanel panelBotones = new JPanel(new FlowLayout());
         panelBotones.setBackground(Color.decode("#dfe6e9"));
 
-        labelMensaje = new JLabel(" ");
+        labelMensaje = new JLabel(" ");  // Mensajes al jugador
         labelMensaje.setForeground(Color.RED);
         labelMensaje.setFont(new Font("Segoe UI", Font.BOLD, 13));
         panelBotones.add(labelMensaje);
@@ -99,6 +107,7 @@ public class JuegoUI extends JFrame implements MotorJuego.TiempoListener {
         JButton botonLimpiar = crearBoton("Limpiar ingredientes", "#ffeaa7");
 
         // Acciones
+        // Tomar ingrediente
         botonTomar.addActionListener((ActionEvent e) -> {
             Ingrediente ing = motor.tomarIngrediente();
             if (ing != null) {
@@ -110,6 +119,7 @@ public class JuegoUI extends JFrame implements MotorJuego.TiempoListener {
             }
         });
 
+          // Tirar ingrediente
         botonTirar.addActionListener((ActionEvent e) -> {
             Ingrediente tirado = motor.tomarIngrediente();
             if (tirado != null) {
@@ -120,6 +130,7 @@ public class JuegoUI extends JFrame implements MotorJuego.TiempoListener {
             actualizarVista();
         });
 
+         // Completar una orden
         botonCompletar.addActionListener((ActionEvent e) -> {
             Hamburguesa orden = motor.obtenerOrdenFrente();
             if (orden != null && ingredientesCoincidenPorNombre(motor.getIngredientesPreparados(), orden.getIngredientes())) {
@@ -133,12 +144,14 @@ public class JuegoUI extends JFrame implements MotorJuego.TiempoListener {
             }
         });
 
+        // Limpiar ingredientes preparados
         botonLimpiar.addActionListener((ActionEvent e) -> {
             motor.limpiarIngredientesPreparados();
             labelMensaje.setText("Ingredientes limpiados.");
             actualizarVista();
         });
 
+        //Agregar al panel principal
         panelBotones.add(botonTomar);
         panelBotones.add(botonTirar);
         panelBotones.add(botonCompletar);
@@ -163,7 +176,7 @@ public class JuegoUI extends JFrame implements MotorJuego.TiempoListener {
         return btn;
     }
 
-    
+     // Método para cargar imágenes de ingredientes
     private ImageIcon loadIcon(String file, int w, int h) {
         java.net.URL url = getClass().getResource("/proyecto/imagenes/" + file);
         if (url == null) {
@@ -176,7 +189,7 @@ public class JuegoUI extends JFrame implements MotorJuego.TiempoListener {
         return new ImageIcon(scaled);
     }
 
-   
+   // Relaciona un ingrediente con su imagen
     private ImageIcon iconFor(Ingrediente ing, int w, int h) {
         String key = (ing.getNombre() == null) ? "" : ing.getNombre().toLowerCase().trim();
         String file = switch (key) {
@@ -211,7 +224,7 @@ public class JuegoUI extends JFrame implements MotorJuego.TiempoListener {
             if (icon != null) {
                 String texto = (i == 0) ? "→ " + ing.getNombre() : " ";
                 lbl = makeIconLabel(texto, icon);
-                if (i == 0) {
+                if (i == 0) { // El primer ingrediente es el que se puede tomar
                     lbl.setForeground(Color.RED);
                     lbl.setBorder(BorderFactory.createLineBorder(Color.RED, 2));
                 } else {
@@ -269,6 +282,7 @@ public class JuegoUI extends JFrame implements MotorJuego.TiempoListener {
 
   
 
+    // Se ejecuta cada vez que el motor actualiza el tiempo
     @Override
     public void tiempoActualizado(int segundosRestantes) {
         SwingUtilities.invokeLater(() -> {
@@ -279,6 +293,7 @@ public class JuegoUI extends JFrame implements MotorJuego.TiempoListener {
 
     /* ===================== Comparación de ingredientes ===================== */
 
+     // Compara si los ingredientes preparados coinciden con los de una orden
     private boolean ingredientesCoincidenPorNombre(List<Ingrediente> preparados, List<Ingrediente> requeridos) {
         if (preparados.size() != requeridos.size()) return false;
 
