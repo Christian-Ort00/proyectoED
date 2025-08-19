@@ -19,7 +19,9 @@ public class Ingrediente {
     public Ingrediente(String nombre) {
         this.nombre = nombre;
     }
+    
 
+    // Devuelve una lista de ingredientes para una hamburguesa sencilla
     public static List<Ingrediente> ingredientesSencilla() {
         List<Ingrediente> lista = new ArrayList<>();
         lista.add(new Ingrediente("pan"));
@@ -27,6 +29,7 @@ public class Ingrediente {
         return lista;
     }
 
+    // Devuelve una lista de ingredientes para una hamburguesa con queso
     public static List<Ingrediente> ingredientesConQueso() {
         List<Ingrediente> lista = new ArrayList<>();
         lista.add(new Ingrediente("pan"));
@@ -35,6 +38,7 @@ public class Ingrediente {
         return lista;
     }
 
+    // Devuelve una lista de ingredientes para una hamburguesa clásica
     public static List<Ingrediente> ingredientesClasica() {
         List<Ingrediente> lista = new ArrayList<>();
         lista.add(new Ingrediente("pan"));
@@ -44,6 +48,7 @@ public class Ingrediente {
         return lista;
     }
 
+      // Genera un ingrediente aleatorio entre pan, carne, queso o lechuga
     public static Ingrediente generarAleatorio() {
         String[] nombres = {"pan", "carne", "queso", "lechuga"};
         int indice = (int) (Math.random() * nombres.length);
@@ -58,6 +63,7 @@ public class Ingrediente {
         return nombre;
     }
 
+     // Dos ingredientes se consideran iguales si tienen el mismo nombre
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
