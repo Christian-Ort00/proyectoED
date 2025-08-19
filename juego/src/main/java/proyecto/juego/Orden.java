@@ -7,7 +7,7 @@ public class Orden {
 
     private NodoOrden frente;
     private NodoOrden fin;
-    private int capacidadMax = 3;
+    private int capacidadMax = 3;  // Capacidad máxima de la cola (número de órdenes que puede guardar)
     private int tamanoActual;
 
     public Orden() {
@@ -16,16 +16,17 @@ public class Orden {
         this.tamanoActual = 0;
     }
 
-    public boolean estaLlena() {
+    public boolean estaLlena() { // Verifica si la cola está llena
         return tamanoActual >= capacidadMax;
     }
 
+     // Agrega una nueva hamburguesa a la cola (al final)
     public void encolar(Hamburguesa hamburguesa) {
-        if (estaLlena()) {
+        if (estaLlena()) {  // Si está llena, no hace nada
             return;
         }
 
-        NodoOrden nuevo = new NodoOrden(hamburguesa);
+        NodoOrden nuevo = new NodoOrden(hamburguesa);   // Crear un nuevo nodo con la hamburguesa
         if (frente == null) {
             frente = nuevo;
             fin = nuevo;
@@ -33,9 +34,11 @@ public class Orden {
             fin.siguiente = nuevo;
             fin = nuevo;
         }
-        tamanoActual++;
+        tamanoActual++; 
+        // Aumentar el tamaño actual de la cola
     }
 
+    // Muestra la hamburguesa que está al frente de la cola (sin eliminarla)
     public Hamburguesa verFrente() {
         if (frente == null) {
             return null;
@@ -43,11 +46,12 @@ public class Orden {
         return frente.hamburguesa;
     }
 
+      // Elimina la hamburguesa que está al frente de la cola
     public void desencolar() {
         if (frente == null) {
             return;
         }
-        frente = frente.siguiente;
+        frente = frente.siguiente;    // Mover el frente al siguiente nodo
         tamanoActual--;
         if (frente == null) {
             fin = null;
@@ -56,16 +60,18 @@ public class Orden {
 
    
 
+    // Devuelve todas las órdenes en una lista
     public List<Hamburguesa> obtenerOrdenes() {
         List<Hamburguesa> lista = new ArrayList<>();
         NodoOrden actual = frente;
-        while (actual != null) {
+        while (actual != null) {   // Recorre la cola y agrega cada hamburguesa a la lista
             lista.add(actual.hamburguesa);
             actual = actual.siguiente;
         }
         return lista;
     }
 
+     // Genera una hamburguesa aleatoria y la encola (si hay espacio)
     public void generarOrdenAleatoria() {
         if (!estaLlena()) {
             Hamburguesa nueva = Hamburguesa.generarAleatoria();
@@ -77,6 +83,7 @@ public class Orden {
 
     
 
+    // Verifica si la cola está vacía
     public boolean estaVacia() {
         return tamanoActual == 0;
     }
