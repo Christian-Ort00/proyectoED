@@ -13,8 +13,8 @@ import java.util.Objects;
  * @author Usuario
  */
 public class Hamburguesa {
-    private List<Ingrediente> ingredientes;
-    private int puntaje;
+    private List<Ingrediente> ingredientes; // Ingredientes que forman la hamburguesa
+    private int puntaje; // Puntaje que otorga al completarla
     private String tipo;
     
     private Hamburguesa(List<Ingrediente> ingredientes, int puntaje, String tipo){
@@ -26,7 +26,7 @@ public class Hamburguesa {
 
     
     
-    
+     // Métodos para crear hamburguesas específicas
     public static Hamburguesa crearHamburguesaSencilla(){
         List<Ingrediente> ingredientes = Ingrediente.ingredientesSencilla();
         return new Hamburguesa(ingredientes,5,"Sencilla");
@@ -39,7 +39,8 @@ public class Hamburguesa {
         List<Ingrediente> ingredientes = Ingrediente.ingredientesClasica();
         return new Hamburguesa(ingredientes,15,"Clasica");
     }
-    
+
+    // Genera una hamburguesa aleatoria (puede ser cualquiera de las tres anteriores)
     public static Hamburguesa generarAleatoria(){
         int tipo=(int)(Math.random()*3);
         switch(tipo){
@@ -62,11 +63,13 @@ public int getPuntaje() {
     return puntaje;
 }
 
+     // Representación en texto
     @Override
     public String toString(){
         return  tipo + " tiene " + ingredientes.toString();  
     }
-    
+
+     // Comparación entre hamburguesas
      @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
